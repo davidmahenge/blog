@@ -22,7 +22,12 @@
   "dependencies": {
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
+    "@nestjs/mapped-types": "false1.2.2",
+    "@nestjs/mongoose": "false9.2.2",
     "@nestjs/platform-express": "^9.0.0",
+    "class-transformer": "false0.5.1",
+    "class-validator": "false0.14.0",
+    "mongoose": "false7.1.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0"
   },
