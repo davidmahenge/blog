@@ -1,4 +1,11 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
+import { UpdateAuthorDto } from './update-author.dto.';
+import { Type } from 'class-transformer';
 
 export class UpdatePostDto {
   @IsOptional()
@@ -6,10 +13,9 @@ export class UpdatePostDto {
   @IsNotEmpty()
   title?: string;
 
-  @IsOptional()
-  @IsString()
-  @IsNotEmpty()
-  author?: string;
+  @ValidateNested()
+  @Type(() => UpdateAuthorDto)
+  author?: UpdateAuthorDto;
 
   @IsOptional()
   @IsString()
