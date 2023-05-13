@@ -1,4 +1,6 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString, ValidateNested } from 'class-validator';
+import { CreateAuthorDto } from './create-author.dto';
+import { Type } from 'class-transformer';
 
 export class CreatePostDto {
   @IsNotEmpty()
@@ -6,8 +8,9 @@ export class CreatePostDto {
   title: string;
 
   @IsNotEmpty()
-  @IsString()
-  author: string;
+  @ValidateNested()
+  @Type(() => CreateAuthorDto)
+  author: CreateAuthorDto;
 
   @IsNotEmpty()
   @IsString()
