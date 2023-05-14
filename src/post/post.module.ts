@@ -9,6 +9,8 @@ import { PostService } from './post.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { BlogPost, BlogPostSchema } from './schema/post.schema';
 import { LoggingMiddleware } from './middleware';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { LoggingInterceptor } from './interceptor';
 
 @Module({
   imports: [
@@ -17,7 +19,13 @@ import { LoggingMiddleware } from './middleware';
     ]),
   ],
   controllers: [PostController],
-  providers: [PostService],
+  providers: [
+    PostService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LoggingInterceptor,
+    },
+  ],
 })
 export class PostModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
