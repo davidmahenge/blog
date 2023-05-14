@@ -11,8 +11,10 @@ import { BlogPost } from './schema/post.schema';
 import { CreatePostDto } from './dto/create-post.dto';
 import { PostService } from './post.service';
 import { UpdatePostDto } from './dto/update-post.dto ';
+//import { LoggingInterceptor } from './interceptor';
 
 @Controller('post')
+//@UseInterceptors(LoggingInterceptor)
 export class PostController {
   constructor(private postService: PostService) {}
   @Post()
