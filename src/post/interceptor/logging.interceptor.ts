@@ -15,11 +15,6 @@ export class LoggingInterceptor implements NestInterceptor {
     const request = context.switchToHttp().getRequest();
     console.log(request.url);
 
-    return next.handle().pipe(
-      map((data) => {
-        console.log('After processing...');
-        console.log('Response: ', data);
-      }),
-    );
+    return next.handle().pipe(map((data) => data));
   }
 }

@@ -17,19 +17,19 @@ export class PostService {
       id: Date.now(),
       ...createPostDto,
     });
-    return await newPostDoc.save();
+    return newPostDoc.save();
   }
 
   async getPosts(): Promise<BlogPost[]> {
-    return await this.blogPostModel.find();
+    return this.blogPostModel.find();
   }
 
   async getPostById(id: string): Promise<BlogPost> {
-    return await this.blogPostModel.findById(id);
+    return this.blogPostModel.findById(id);
   }
 
   async deletePost(id: string): Promise<any> {
-    return await this.blogPostModel.findOneAndDelete({
+    return this.blogPostModel.findOneAndDelete({
       id: +id,
     });
   }
