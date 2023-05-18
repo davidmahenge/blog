@@ -10,16 +10,20 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async validateUser(email: string, password: string): Promise<User> {
-    const user = await this.userService.getUserByUsername(email);
+  async validateUser(username: string, password: string): Promise<User> {
+    const user = await this.userService.getUserByUsername(username);
     return user;
   }
 
   async generateToken(user: any): Promise<any> {
+    const { role, permissions, _id, username } =
+      await this.userService.getUserByUsername(user.username);
     const payload = {
-      username: user.email,
-      sub: user.id,
-    }; //get identity , roles and permission from the database/file
+      userId: _id,
+      username,
+      role,
+      permissions,
+    };
     return this.jwtService.sign(payload);
   }
 }

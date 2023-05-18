@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
-import { BlogPost } from './schema/post.schema';
 import { UpdatePostDto } from './dto/update-post.dto ';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { BlogPost, BlogPostDocument } from './schema/post.schema';
 
 @Injectable()
 export class PostService {
   constructor(
     @InjectModel(BlogPost.name)
-    private readonly blogPostModel: Model<BlogPost>,
+    private readonly blogPostModel: Model<BlogPostDocument>,
   ) {}
 
   async createPost(createPostDto: CreatePostDto): Promise<BlogPost> {

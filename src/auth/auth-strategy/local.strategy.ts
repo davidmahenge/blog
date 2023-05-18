@@ -1,19 +1,21 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
 import { AuthService } from '../auth.service';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
-  private logger: Logger;
   constructor(private authService: AuthService) {
-    super({ usernameField: 'email' });
-    this.logger = new Logger(LocalStrategy.name);
+    super();
   }
 
-  async validate(email: string, password: string): Promise<any> {
-    const user = await this.authService.validateUser(email, password);
-    this.logger.log('Logged In User ,checking at local auth:', user);
+  async validate(username: string, password: string): Promise<any> {
+    const user = await this.authService.validateUser(username, password);
+    if (!user) {
+      throw new UnauthorizedException({
+        message: 'You have entered a wrong username or password',
+      });
+    }
     return user;
   }
 }

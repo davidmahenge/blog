@@ -1,5 +1,5 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Types } from 'mongoose';
+import { Document, HydratedDocument, Types } from 'mongoose';
 import { Author } from './author.schema';
 
 @Schema()
@@ -19,5 +19,5 @@ export class BlogPost extends Document {
   @Prop({ required: true })
   publishedDate: string;
 }
-
+export type BlogPostDocument = HydratedDocument<BlogPost>;
 export const BlogPostSchema = SchemaFactory.createForClass(BlogPost);

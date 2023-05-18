@@ -14,7 +14,6 @@ export class LoggingInterceptor implements NestInterceptor {
   ): Observable<any> | Promise<Observable<any>> {
     const request = context.switchToHttp().getRequest();
     console.log(request.url);
-
     return next.handle().pipe(map((data) => data));
   }
 }

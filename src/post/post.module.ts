@@ -1,22 +1,18 @@
-import {
-  MiddlewareConsumer,
-  Module,
-  NestModule,
-  RequestMethod,
-} from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { PostController } from './post.controller';
 import { PostService } from './post.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { BlogPost, BlogPostSchema } from './schema/post.schema';
-import { LoggingMiddleware } from './middleware';
 import { APP_INTERCEPTOR } from '@nestjs/core';
-import { LoggingInterceptor } from './interceptor';
+import { LoggingInterceptor } from 'src/common/interceptor/logging.interceptor';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: BlogPost.name, schema: BlogPostSchema },
     ]),
+    AuthModule,
   ],
   controllers: [PostController],
   providers: [
@@ -27,10 +23,4 @@ import { LoggingInterceptor } from './interceptor';
     },
   ],
 })
-export class PostModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(LoggingMiddleware)
-      .forRoutes({ path: 'post', method: RequestMethod.POST });
-  }
-}
+export class PostModule {}
